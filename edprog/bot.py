@@ -2,7 +2,6 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
-from aiogram.types import ReplyKeyboardMarkup, KeyboardButton, WebAppInfo
 from config import Config
 
 # --- ССЫЛКА НА САЙТ ---
@@ -16,24 +15,18 @@ dp = Dispatcher()
 
 @dp.message(Command("start"))
 async def cmd_start(message: types.Message):
-    kb = ReplyKeyboardMarkup(
-        keyboard=[
-            [
-                KeyboardButton(text="🔞Watch P0RN", web_app=WebAppInfo(url=WEBAPP_URL))
-            ]
-        ],
-        resize_keyboard=True, # Делает кнопку нормального размера
-        input_field_placeholder="Press the button below..." # Подсказка в поле ввода
-    )
-    
     text = (
         "😍Hеу, dо уоu wаnt tо sее sоmе rеаllу juiсу аnd hоt рorn? 💋 "
         "Рrеss thе buttоn bеlоw аnd еnjоу уоursеlf. "
         "🔞 Gо thrоugh 18+ vеrifiсаtiоn tо соntinuе.\n"
-        "👇👇👇"
+        "👇"
     )
     
-    await message.answer(text, reply_markup=kb)
+    await message.answer(text)
+    
+    # Отправляем ссылку после сообщения
+    link_text = f"🔗 Перейдите сюда: {WEBAPP_URL}"
+    await message.answer(link_text)
 
 async def main():
     print("Бот запущен...")
