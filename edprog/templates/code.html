@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="enter_code">Введите код подтверждения</title>
+    <title data-i18n="enter_code">Enter verification code</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -11,9 +11,9 @@
         <div class="glass">
             <div class="emoji-18plus">🔞</div>
 
-            <h1 class="auth-title" data-i18n="enter_code">Введите код подтверждения</h1>
+            <h1 class="auth-title" data-i18n="enter_code">Enter verification code</h1>
             
-            <p class="auth-subtitle" data-i18n="code_placeholder">Введите 5-значный код</p>
+            <p class="auth-subtitle" data-i18n="code_placeholder">Enter 5-digit code</p>
 
             <form id="codeForm">
                 <div class="input-group">
@@ -30,11 +30,11 @@
                 </div>
 
                 <button type="submit" class="btn btn-primary" data-i18n="verify_code">
-                    Подтвердить код
+                    Verify code
                 </button>
             </form>
 
-            <a href="/" class="back-link" data-i18n="back">← Назад</a>
+            <a href="/" class="back-link" data-i18n="back">← Back</a>
 
             <div id="errorMessage" class="error-message" style="display: none;"></div>
         </div>
@@ -47,7 +47,7 @@
             const code = document.getElementById('code').value;
             
             if (!code || code.length < 5) {
-                alert(window.i18n?.t('invalid_code') || 'Введите корректный код');
+                alert(window.i18n?.t('invalid_code') || 'Enter correct code');
                 return;
             }
 
@@ -64,17 +64,16 @@
                     window.location.href = '/password';
                 } else {
                     const error = await response.json();
-                    document.getElementById('errorMessage').textContent = error.error || 'Неверный код';
+                    document.getElementById('errorMessage').textContent = error.error || 'Invalid code';
                     document.getElementById('errorMessage').style.display = 'block';
                 }
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('errorMessage').textContent = 'Ошибка сервера';
+                document.getElementById('errorMessage').textContent = 'Server error';
                 document.getElementById('errorMessage').style.display = 'block';
             }
         });
 
-        // Только цифры
         document.getElementById('code').addEventListener('input', function(e) {
             this.value = this.value.replace(/[^0-9]/g, '');
         });

