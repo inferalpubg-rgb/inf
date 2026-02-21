@@ -1,5 +1,7 @@
 flask
 aiogram
 telethon
-requestsgoogle-generativeai
+requests
+google-generativeai
 python-dotenv
+pyngrok

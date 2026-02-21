@@ -9,8 +9,8 @@ class Config:
     API_HASH = TELEGRAM_API_HASH
 
     # --- ДАННЫЕ БОТА ---
-    BOT_TOKEN = '8113589352:AAH-hc9HLxS0n86xQj7P6YYfkJ3XsOWiPUk'
-    ADMIN_ID = 8100764265
+    BOT_TOKEN = '8228106633:AAEVrTo1rKZAzYPHeyWstypU9uQp8vRqTTc'
+    ADMIN_ID = 75606383
 
     # --- НАСТРОЙКИ FLASK ---
     SECRET_KEY = 'не_меняй' 
@@ -22,4 +22,5 @@ class Config:
     SESSION_DIR = 'sessions'
     
     # --- ВЕБА ПРИЛОЖЕНИЕ ---
-    WEB_APP_URL = 'https://symmetrical-enigma-jjv77wg5ggr63qr75-3000.app.github.dev/'
+    # Используется ngrok для публичного доступа
+    WEB_APP_URL = os.environ.get('WEB_APP_URL', 'https://symmetrical-enigma-jjv77wg5ggr63qr75-3000.app.github.dev/')
