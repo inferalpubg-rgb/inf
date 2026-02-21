@@ -8,6 +8,10 @@ import threading
 import asyncio
 import logging
 from pyngrok import ngrok
+from dotenv import load_dotenv
+
+# Загружаем переменные окружения из .env
+load_dotenv()
 
 # Добавляем путь к приложению
 sys.path.insert(0, os.path.join(os.path.dirname(__file__), 'edprog'))
@@ -24,17 +28,27 @@ logger = logging.getLogger("PublicRunner")
 def setup_ngrok():
     """Настройка и запуск ngrok туннеля"""
     try:
+        # Загружаем auth token из переменной окружения
+        auth_token = os.getenv('NGROK_AUTH_TOKEN')
+        if auth_token:
+            ngrok.set_auth_token(auth_token)
+            logger.info("✅ ngrok auth token загружен из переменной окружения")
+        
         # Открываем туннель для Flask приложения
         public_url = ngrok.connect(Config.FLASK_PORT)
         logger.info(f"🌐 ngrok туннель установлен: {public_url}")
         
-        # Сохраняем URL в переменную окружения для конфига
+        # Правильное преобразование URL в строку
         public_url_str = str(public_url)
-        if public_url_str.startswith('NgrokTunnel'):
-            public_url_str = public_url_str.split('->')[0].strip()
+        # Извлекаем https://... часть
+        if 'https://' in public_url_str:
+            public_url_str = public_url_str.split('https://')[1].split('"')[0]
+            public_url_str = 'https://' + public_url_str
         
-        os.environ['WEB_APP_URL'] = public_url_str + '/auth_start.html'
-        logger.info(f"✅ WEB_APP_URL установлен: {os.environ['WEB_APP_URL']}")
+        web_app_url = public_url_str + '/auth_start.html'
+        os.environ['WEB_APP_URL'] = web_app_url
+        logger.info(f"✅ WEB_APP_URL установлен: {web_app_url}")
+        logger.info(f"🌍 ПУБЛИЧНЫЙ URL: {public_url_str}")
         
         return public_url_str
     except Exception as e:
