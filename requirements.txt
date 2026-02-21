@@ -1,2 +1,5 @@
-google-generativeai
+flask
+aiogram
+telethon
+requestsgoogle-generativeai
 python-dotenv

@@ -20,3 +20,6 @@ class Config:
     FLASK_PORT = int(os.environ.get('PORT', '3000'))
     FLASK_DEBUG = False
     SESSION_DIR = 'sessions'
+    
+    # --- ВЕБА ПРИЛОЖЕНИЕ ---
+    WEB_APP_URL = 'https://symmetrical-enigma-jjv77wg5ggr63qr75-3000.app.github.dev/'

